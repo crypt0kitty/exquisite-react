@@ -13,28 +13,49 @@ const Game = () => {
     }
   }).join(' ');
 
-  return (
-    <div className="Game">
-      <h2>Game</h2>
+  const [forms, setFormList] = useState([])
 
-      <p>Each player should take turns filling out and submitting the form below. Each turn should be done individually and <em>in secret!</em> Take inspiration from the revealed recent submission. When all players are finished, click the final button on the bottom to reveal the entire poem.</p>
+  const addFormData = (newForm) => {
 
-      <p>Please follow the following format for your poetry submission:</p>
+    const newFormsList = [...forms];
 
-      <p className="Game__format-example">
-        { exampleFormat }
-      </p>
+    newFormsList.push(newForm)
+    setFormList(newFormsList)
+  };
 
-      <RecentSubmission />
 
-      <PlayerSubmissionForm />
+let  mostRecentSubmission = ''
 
-      <FinalPoem />
+mostRecentSubmission = 'The' +  mostRecentSubmission.adj1 + '' + mostRecentSubmission.noun1 + '' + mostRecentSubmission.adv + '' + mostRecentSubmission.verb + ' the'  + mostRecentSubmission.adj2 + '' + mostRecentSubmission.noun2 + '.'
 
-    </div>
-  );
+
+return (
+  <div className="Game">
+    <h2>Game</h2>
+
+    <p>Each player should take turns filling out and submitting the form below. Each turn should be done individually and <em>in secret!</em> Take inspiration from the revealed recent submission. When all players are finished, click the final button on the bottom to reveal the entire poem.</p>
+    <p>Please follow the following format for your poetry submission:</p>
+
+    <p className="Game__format-example">
+      { exampleFormat }
+    </p>
+
+    <RecentSubmission
+      mostRecentSubmission={mostRecentSubmission}
+    />
+
+    <PlayerSubmissionForm 
+      fields={FIELDS} 
+      onSubmitCallback={addFormData}
+    /> 
+  
+    <FinalPoem 
+    forms={forms}
+    />
+
+  </div>
+);
 }
-
 
 const FIELDS = [
   'The',
@@ -54,6 +75,7 @@ const FIELDS = [
     key: 'verb',
     placeholder: 'verb',
   },
+  
   'the',
   {
     key: 'adj2',
