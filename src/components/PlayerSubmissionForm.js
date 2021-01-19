@@ -36,7 +36,7 @@ const PlayerSubmissionForm = (props) => {
   event.preventDefault();
     // Print user data
     // console.log(formData)
-  props.onSubmitCallback(submission);
+  props.sendSubmission(submission);
     // Clear the form
     setSubmission({
       adj1: '',

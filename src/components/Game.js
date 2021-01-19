@@ -13,21 +13,18 @@ const Game = () => {
     }
   }).join(' ');
 
-  const [forms, setFormList] = useState([])
+  const [sentences, setFormList] = useState([])
 
   const addFormData = (newForm) => {
+    const newFormsList = [...sentences];
 
-    const newFormsList = [...forms];
+    const newSentence = 'The ' + newForm.adj1 + ' ' + newForm.noun1 + ' ' + newForm.adv + ' ' + newForm.verb + ' the '  + newForm.adj2 + ' ' + newForm.noun2 + '.'
 
-    newFormsList.push(newForm)
-    setFormList(newFormsList)
+    newFormsList.push(newSentence)
+    setFormList(newFormsList) //sends request to React to update the corresponding state variable (forms)
   };
 
-
-let  mostRecentSubmission = ''
-
-mostRecentSubmission = 'The' +  mostRecentSubmission.adj1 + '' + mostRecentSubmission.noun1 + '' + mostRecentSubmission.adv + '' + mostRecentSubmission.verb + ' the'  + mostRecentSubmission.adj2 + '' + mostRecentSubmission.noun2 + '.'
-
+const mostRecentSubmission = (sentences.length > 0) ? sentences[sentences.length-1] : ''
 
 return (
   <div className="Game">
@@ -41,16 +38,16 @@ return (
     </p>
 
     <RecentSubmission
-      mostRecentSubmission={mostRecentSubmission}
+      submission={mostRecentSubmission} 
     />
 
     <PlayerSubmissionForm 
       fields={FIELDS} 
-      onSubmitCallback={addFormData}
+      sendSubmission={addFormData}
     /> 
   
     <FinalPoem 
-    forms={forms}
+    forms={sentences}
     />
 
   </div>
